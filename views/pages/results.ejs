@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../partials/head.ejs"); %>
+</head>
+
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron shadow-lg">
+                    <h1 class="display-3">Welcome stranger</h1>
+                    <p class="lead">Is the truth important? Or merely people's perception of what's true?</p>
+                    <hr class="my-4">
+                    <%- include("../partials/result_card.ejs", { question: question, result: result }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/geolocation.js"></script>
+</body>
+
+</html>
