@@ -35,7 +35,20 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, serve
     );
 
 
+// Manual snippet to insert new questions
+/*
+Poll.create({
+    question: "Can people change?" ,
+}).then((res) => {
+    console.log("document inserted");
+}).catch((err) => {
+    console.log(err);
+})
+*/
+
+
 // Routes
+// Randomize the order of questions
 app.get("/", async (req, res) => {
     var ip = req.headers['x-forwarded-for'] ||
         req.socket.remoteAddress ||
@@ -57,36 +70,44 @@ app.get("/", async (req, res) => {
 
 
 app.post("/voteyes/:qid/:country/:question", (req, res) => {
-
     const score = new Score({
         question_id: req.params.qid,
-        y_result: req.params.country
+        country: req.params.country
     })
-    score.save()
-        .then(async (result) => {
-            //console.log(result)
-            const y_result = await Score.aggregate([{ $group: { _id: { $lte: ["$y_result", null] }, count: { $sum: 1 } } }])
-            console.log(y_result)
-            res.render("pages/results", {
-                question: req.params.question,
-                result: y_result
-            })
-
+    Score.findOneAndUpdate(
+        { $and: [{ "question_id": score.question_id }, { "country": score.country }] },
+        { $inc: { "y_count": 1 } },
+        { upsert: true, returnNewDocument: true, new: true },
+    ).then((result) => {
+        console.log(result)
+        res.render("pages/results", {
+            question: req.params.question,
+            result: result
         })
-        .catch((err) => {
-            console.log(err)
-            res.redirect("back")
-        })
+    }).catch((err) => {
+        console.log(err)
+    })
 })
 
 
 app.post("/voteno/:qid/:country/:question", (req, res) => {
-    res.render("pages/results", {
-        "question_id": req.params.qid,
-        "answer": "yes",
-        "country": req.params.country
+    const score = new Score({
+        question_id: req.params.qid,
+        country: req.params.country
+    })
+    Score.findOneAndUpdate(
+        { $and: [{ "question_id": score.question_id }, { "country": score.country }] },
+        { $inc: { "n_count": 1 } },
+        { upsert: true, returnNewDocument: true, new: true },
+    ).then((result) => {
+        console.log(result)
+        res.render("pages/results", {
+            question: req.params.question,
+            result: result
+        })
+    }).catch((err) => {
+        console.log(err)
     })
 })
-
 
 

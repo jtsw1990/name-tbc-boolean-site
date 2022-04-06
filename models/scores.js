@@ -10,13 +10,20 @@ const scoreSchema = new Schema({
         type: String,
         required: true
     },
-    y_result: {
+    country: {
         type: String,
-        required: false
+        required: true,
+        default: "Local"
     },
-    n_result: {
-        type: String,
-        required: false
+    y_count: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    n_count: {
+        type: Number,
+        required: true,
+        default: 0
     }
 }, { timestamps: true })
 
