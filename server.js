@@ -38,7 +38,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, serve
 // Manual snippet to insert new questions
 /*
 Poll.create({
-    question: "Can people change?" ,
+    question: "Do guns make society safer?" ,
 }).then((res) => {
     console.log("document inserted");
 }).catch((err) => {
@@ -60,7 +60,8 @@ app.get("/", async (req, res) => {
             return response.country
         }
     })
-    const questions = await Poll.find({})
+    var questions = await Poll.find({});
+    questions = shuffle(questions);
     res.render("pages/index", {
         questions: questions,
         country: client_country
@@ -100,14 +101,30 @@ app.post("/voteno/:qid/:country/:question", (req, res) => {
         { $inc: { "n_count": 1 } },
         { upsert: true, returnNewDocument: true, new: true },
     ).then((result) => {
-        console.log(result)
-        res.render("pages/results", {
-            question: req.params.question,
-            result: result
-        })
+        Score.find({ "question_id": score.question_id })
+                .then((result) => {
+                    res.render("pages/results", {
+                        question: req.params.question,
+                        result: result
+                    })
+                }).catch((err) => {
+                    console.log(err);
+                })
     }).catch((err) => {
-        console.log(err)
+        console.log(err);
     })
 })
 
 
+// Fisher-yates shuffling algorithm 
+// https://bost.ocks.org/mike/shuffle/
+function shuffle(array) {
+    var m = array.length, t, i;
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+    return array;
+  }
