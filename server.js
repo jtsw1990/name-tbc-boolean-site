@@ -80,13 +80,18 @@ app.post("/voteyes/:qid/:country/:question", (req, res) => {
         { $inc: { "y_count": 1 } },
         { upsert: true, returnNewDocument: true, new: true },
     ).then((result) => {
-        console.log(result)
-        res.render("pages/results", {
-            question: req.params.question,
-            result: result
-        })
+        Score.find({ "question_id": score.question_id })
+                .then((result) => {
+                    console.log(result)
+                    res.render("pages/results", {
+                        question: req.params.question,
+                        result: result
+                    })
+                }).catch((err) => {
+                    console.log(err);
+                })
     }).catch((err) => {
-        console.log(err)
+        console.log(err);
     })
 })
 
@@ -103,6 +108,7 @@ app.post("/voteno/:qid/:country/:question", (req, res) => {
     ).then((result) => {
         Score.find({ "question_id": score.question_id })
                 .then((result) => {
+                    result.forEach(r => { console.log(r.country)})
                     res.render("pages/results", {
                         question: req.params.question,
                         result: result

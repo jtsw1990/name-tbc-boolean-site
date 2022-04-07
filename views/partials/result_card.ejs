@@ -1,9 +1,50 @@
+<script>
+    const labels = [<%- result.map(r => JSON.stringify(r.country)) %>];
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+            axis: 'y',
+            label: 'yes',
+            data: [<%- result.map(r => JSON.stringify(r.y_count / (parseFloat(r.y_count) + r.n_count))) %>],
+            fill: false,
+            backgroundColor: [
+                // Randomize this based on length?
+                // 'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                // Randomize this based on length?
+                // 'rgb(255, 99, 132)'
+            ],
+            borderWidth: 1
+        },
+    ]
+    };
+    const config = {
+        type: 'bar',
+        data,
+        options: {
+            indexAxis: 'y',
+        }
+    };
+</script>
+
 <div class="card">
     <div class="card-body shadow-lg">
         <p class="card-title text-center display-4">
             <%= question %>
         </p>
         <hr class="my-4">
-       <%= result %>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+        <%- result.map(a => a.country) %>
     </div>
 </div>
+
+<script>
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
