@@ -1,5 +1,5 @@
 html body {
-    background: linear-gradient(to bottom, #ebbcb0, #914242) !important;
+    background: linear-gradient(to bottom, #f2ecec, #f2ecec) !important;
 
 }
 
@@ -15,4 +15,23 @@ html {
 .carousel-control-next,
 .carousel-control-prev /*, .carousel-indicators */ {
     filter: invert(100%);
+    font-size: 100px !important;
+    height: 70%;
+}
+
+h3 {
+    font-family: 'Bubblegum Sans', latin !important
+}
+
+.card-title {
+    font-family: 'Carter One', latin !important
+}
+
+.jumbotron {
+    background: rgba(0, 0, 0, 0) !important
+ }
+
+
+.card {
+    background: rgba(0, 0, 0, 0) !important
 }

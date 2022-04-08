@@ -4,33 +4,40 @@
         labels: labels,
         datasets: [
             {
-            axis: 'y',
-            label: 'yes',
-            data: [<%- result.map(r => JSON.stringify(r.y_count / (parseFloat(r.y_count) + r.n_count))) %>],
-            fill: false,
-            backgroundColor: [
-                // Randomize this based on length?
-                // 'rgba(255, 99, 132, 0.2)',
-            ],
-            borderColor: [
-                // Randomize this based on length?
-                // 'rgb(255, 99, 132)'
-            ],
-            borderWidth: 1
-        },
-    ]
+                axis: 'y',
+                label: 'yes',
+                data: [<%- result.map(r => JSON.stringify(r.y_count / (parseFloat(r.y_count) + r.n_count))) %>],
+                fill: false,
+                backgroundColor: ["rgba(190, 255, 162)"]
+            },
+            {
+                axis: 'y',
+                label: 'no',
+                data: [<%- result.map(r => JSON.stringify(r.n_count / (parseFloat(r.y_count) + r.n_count))) %>],
+                fill: false,
+                backgroundColor: ["rgba(250, 131, 131)"]
+            },
+        ]
     };
     const config = {
         type: 'bar',
-        data,
+        data: data,
         options: {
             indexAxis: 'y',
+            plugins: {
+                title: { display: true },
+            },
+            responsive: true,
+            scales: {
+                x: { stacked: true },
+                y: { stacked: true }
+            }
         }
     };
 </script>
 
-<div class="card">
-    <div class="card-body shadow-lg">
+<div class="card border-0">
+    <div class="card-body">
         <p class="card-title text-center display-4">
             <%= question %>
         </p>
@@ -38,7 +45,6 @@
         <div>
             <canvas id="myChart"></canvas>
         </div>
-        <%- result.map(a => a.country) %>
     </div>
 </div>
 
