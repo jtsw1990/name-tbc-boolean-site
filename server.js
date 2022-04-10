@@ -69,6 +69,10 @@ app.get("/", async (req, res) => {
 })
 
 
+app.get("/about", (req, res) => {
+    res.render("pages/about");
+})
+
 
 app.post("/voteyes/:qid/:country/:question", (req, res) => {
     const score = new Score({
@@ -82,7 +86,6 @@ app.post("/voteyes/:qid/:country/:question", (req, res) => {
     ).then((result) => {
         Score.find({ "question_id": score.question_id })
                 .then((result) => {
-                    console.log(result)
                     res.render("pages/results", {
                         question: req.params.question,
                         result: result
@@ -108,7 +111,6 @@ app.post("/voteno/:qid/:country/:question", (req, res) => {
     ).then((result) => {
         Score.find({ "question_id": score.question_id })
                 .then((result) => {
-                    result.forEach(r => { console.log(r.country)})
                     res.render("pages/results", {
                         question: req.params.question,
                         result: result

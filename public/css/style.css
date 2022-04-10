@@ -19,9 +19,11 @@ html {
     height: 70%;
 }
 
-h3 {
+h3, a.btn {
     font-family: 'Bubblegum Sans', latin !important
 }
+
+
 
 .card-title {
     font-family: 'Carter One', latin !important
