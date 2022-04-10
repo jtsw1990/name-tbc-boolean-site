@@ -88,6 +88,10 @@ app.get("/share_results/:qid/:country/:question", (req, res) => {
 })
 
 
+app.get("/terms", (req, res) => {
+    res.render("pages/terms")
+})
+
 app.post("/voteyes/:qid/:country/:question", (req, res) => {
     const score = new Score({
         question_id: req.params.qid,
