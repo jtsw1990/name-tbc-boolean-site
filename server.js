@@ -74,6 +74,20 @@ app.get("/about", (req, res) => {
 })
 
 
+app.get("/share_results/:qid/:country/:question", (req, res) => {
+    Score.find({ "question_id": req.params.qid })
+                .then((result) => {
+                    console.log(result)
+                    res.render("pages/share_results", {
+                        question: req.params.question,
+                        result: result
+                    })
+                }).catch((err) => {
+                    console.log(err);
+                })
+})
+
+
 app.post("/voteyes/:qid/:country/:question", (req, res) => {
     const score = new Score({
         question_id: req.params.qid,
@@ -88,6 +102,7 @@ app.post("/voteyes/:qid/:country/:question", (req, res) => {
                 .then((result) => {
                     res.render("pages/results", {
                         question: req.params.question,
+                        question_id: score.question_id,
                         result: result
                     })
                 }).catch((err) => {
@@ -113,6 +128,7 @@ app.post("/voteno/:qid/:country/:question", (req, res) => {
                 .then((result) => {
                     res.render("pages/results", {
                         question: req.params.question,
+                        question_id: score.question_id,
                         result: result
                     })
                 }).catch((err) => {

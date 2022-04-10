@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../partials/head.ejs"); %>
+</head>
+
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron shadow-lg">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <h3>In my honest opinion...</h3>
+                        </div>
+                    </div>
+                    <%- include("../partials/result_card.ejs", { question: question, result: result }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
