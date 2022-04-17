@@ -1,4 +1,4 @@
-# name-tbc-boolean-site
+# politcly.com
 A fun idea for a website that people can go to and vote on controversial topics
 
 # Features
