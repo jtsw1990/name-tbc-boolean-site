@@ -14,6 +14,7 @@ const port = process.env.PORT || 3000;
 const methodOverride = require("method-override");
 let { IPinfoWrapper } = require("node-ipinfo");
 const requestIp = require('request-ip');
+const { nextTick } = require('process');
 
 let ipinfo = new IPinfoWrapper(process.env.ipinfoToken);
 
@@ -24,11 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride("_method"))
 
+
 app.use(requestIp.mw())
-app.use(function(req, res) {
-    const ip = req.clientIp;
-    res.end(ip);
-});
+
+
 
 
 
@@ -57,9 +57,7 @@ Poll.create({
 // Routes
 // Randomize the order of questions
 app.get("/", async (req, res) => {
-    var ip = req.headers['x-forwarded-for'] ||
-        req.socket.remoteAddress ||
-        null;
+    var ip = req.clientIp || null;
     client_country = await ipinfo.lookupIp(ip).then((response) => {
         if (response.bogon) {
             return "Local"
