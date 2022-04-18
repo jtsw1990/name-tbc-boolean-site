@@ -21,7 +21,7 @@ let ipinfo = new IPinfoWrapper(process.env.ipinfoToken);
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride("_method"))
+app.use(methodOverride("method"))
 
 
 // Connect to mongoDB and listen to port
@@ -92,6 +92,7 @@ app.get("/terms", (req, res) => {
 })
 
 app.post("/voteyes/:qid/:country/:question", (req, res) => {
+    console.log("THIS IS CALLED")
     const score = new Score({
         question_id: req.params.qid,
         country: req.params.country
@@ -118,6 +119,7 @@ app.post("/voteyes/:qid/:country/:question", (req, res) => {
 
 
 app.post("/voteno/:qid/:country/:question", (req, res) => {
+    console.log("THIS IS CALLED")
     const score = new Score({
         question_id: req.params.qid,
         country: req.params.country
