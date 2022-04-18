@@ -13,6 +13,7 @@ const dbURI = process.env.dbURI;
 const port = process.env.PORT || 3000;
 const methodOverride = require("method-override");
 let { IPinfoWrapper } = require("node-ipinfo");
+const requestIp = require('request-ip');
 
 let ipinfo = new IPinfoWrapper(process.env.ipinfoToken);
 
@@ -22,6 +23,13 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride("_method"))
+
+app.use(requestIp.mw())
+app.use(function(req, res) {
+    const ip = req.clientIp;
+    res.end(ip);
+});
+
 
 
 // Connect to mongoDB and listen to port
@@ -51,7 +59,7 @@ Poll.create({
 app.get("/", async (req, res) => {
     var ip = req.headers['x-forwarded-for'] ||
         req.socket.remoteAddress ||
-        "::1";
+        null;
     client_country = await ipinfo.lookupIp(ip).then((response) => {
         if (response.bogon) {
             return "Local"
@@ -61,13 +69,11 @@ app.get("/", async (req, res) => {
     })
     var questions = await Poll.find({});
     questions = shuffle(questions);
-
-    
     res.render("pages/index", {
         questions: questions,
         country: client_country
     });
-        
+
 })
 
 
