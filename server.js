@@ -19,9 +19,9 @@ let ipinfo = new IPinfoWrapper(process.env.ipinfoToken);
 
 // Middleware and static file config
 app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride("method"))
+app.use(methodOverride("_method"))
 
 
 // Connect to mongoDB and listen to port
