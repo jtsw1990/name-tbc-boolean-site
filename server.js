@@ -63,13 +63,10 @@ app.get("/", (req, res) => {
             Poll.find({})
             .then((results) => {
                 questions = shuffle(results);
-                /*
                 res.render("pages/index", {
                     questions: questions,
                     country: response.country
                 });
-                */
-               res.send(response.country)
             })
             .catch((err) => {
                 console.log(err)
