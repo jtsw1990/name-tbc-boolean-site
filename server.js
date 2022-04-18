@@ -59,15 +59,15 @@ app.get("/", async (req, res) => {
             return response.country
         }
     })
-    //var questions = await Poll.find({});
-    //questions = shuffle(questions);
-    res.send(client_country)
-    /*
+    var questions = await Poll.find({});
+    questions = shuffle(questions);
+
+    
     res.render("pages/index", {
         questions: questions,
         country: client_country
     });
-    */
+    
 })
 
 
