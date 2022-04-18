@@ -99,7 +99,6 @@ app.get("/terms", (req, res) => {
 })
 
 app.post("/voteyes/:qid/:country/:question", (req, res) => {
-    console.log("THIS IS CALLED")
     const score = new Score({
         question_id: req.params.qid,
         country: req.params.country

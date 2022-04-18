@@ -6,12 +6,12 @@
         <hr class="my-4">
         <div class="row">
             <div class="col text-center">
-                <form action="/voteyes/<%= q._id%>/Worldwide/<%= q.question %>" method="POST">
+                <form action="/voteyes/<%= q._id%>/<%= country %>/<%= q.question %>" method="POST">
                     <button type="submit" class="btn btn-primary btn-lg btn-block"><img src="/assets/yes.png" style="width:30%;height:30%;"></button>
                 </form>
             </div>
             <div class="col text-center">
-                <form action="/voteno/<%= q._id%>/Worldwide/<%= q.question %>" method="POST">
+                <form action="/voteno/<%= q._id%>/<%= country %>/<%= q.question %>" method="POST">
                 <button type="submit" class="btn btn-danger btn-lg btn-block"><img src="/assets/no.png" style="width:30%;height:30%;"></button>
                 </form>
             </div>

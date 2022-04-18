@@ -21,11 +21,11 @@
                             <% questions.forEach((q, idx)=> { %>
                                 <% if (idx===0) { %>
                                     <div class="carousel-item active">
-                                        <%- include("../partials/poll_card.ejs", {q: q, c: country}); %>
+                                        <%- include("../partials/poll_card.ejs", {q: q, country: country}); %>
                                     </div>
                                     <% } else { %>
                                         <div class="carousel-item">
-                                            <%- include("../partials/poll_card.ejs", {q: q, c: country}); %>
+                                            <%- include("../partials/poll_card.ejs", {q: q, country: country}); %>
                                         </div>
                                         <% } %>
                                             <% }); %>
