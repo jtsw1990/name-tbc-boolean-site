@@ -58,9 +58,11 @@ Poll.create({
 // Randomize the order of questions
 app.get("/", async (req, res) => {
     var ip = req.clientIp || null;
+    res.send(ip)
+    /*
     client_country = await ipinfo.lookupIp(ip).then((response) => {
         if (response.bogon) {
-            return "Local"
+            return "Unknown"
         } else {
             return response.country
         }
@@ -71,7 +73,7 @@ app.get("/", async (req, res) => {
         questions: questions,
         country: client_country
     });
-
+    */
 })
 
 

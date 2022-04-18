@@ -13,7 +13,7 @@ const scoreSchema = new Schema({
     country: {
         type: String,
         required: true,
-        default: "Local"
+        default: "Unknown"
     },
     y_count: {
         type: Number,
