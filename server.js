@@ -14,6 +14,7 @@ const port = process.env.PORT || 3000;
 const methodOverride = require("method-override");
 let { IPinfoWrapper } = require("node-ipinfo");
 const requestIp = require('request-ip');
+const favicon = require('serve-favicon');
 const { nextTick } = require('process');
 
 let ipinfo = new IPinfoWrapper(process.env.ipinfoToken);
@@ -24,11 +25,9 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride("_method"))
-
-
 app.use(requestIp.mw())
-
-
+// Middleware for serving favicon
+app.use(favicon(path.join(__dirname, "public", "assets", "favicon.ico")));
 
 
 
