@@ -56,16 +56,22 @@ Poll.create({
 
 // Routes
 // Randomize the order of questions
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
     var ip = req.clientIp || null;
     ipinfo.lookupIp(ip)
         .then((response) => {
-            var questions = await Poll.find({});
-            questions = shuffle(questions);
-            res.render("pages/index", {
-                questions: questions,
-                country: response.country
-            });
+            Poll.find({})
+            .then((results) => {
+                questions = shuffle(results);
+                res.render("pages/index", {
+                    questions: questions,
+                    country: response.country
+                });
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
         })
         .catch((err) => {
             console.log(err)
