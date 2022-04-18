@@ -56,12 +56,12 @@ Poll.create({
 
 // Routes
 // Randomize the order of questions
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
     var ip = req.clientIp || null;
-    client_country = await ipinfo.lookupIp(ip).then((response) => {
-        return response
+    ipinfo.lookupIp(ip).then((response) => {
+        res.send(response)
     })
-    res.send(response)
+    
         /*
     client_country = await ipinfo.lookupIp(ip).then((response) => {
         if (response.bogon) {
