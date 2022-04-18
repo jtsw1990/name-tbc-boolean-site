@@ -100,6 +100,11 @@ app.get("/about", (req, res) => {
 })
 
 
+app.get("/terms", (req, res) => {
+    res.render("pages/terms")
+})
+
+
 app.get("/share_results/:qid/:country/:question", (req, res) => {
     Score.find({ "question_id": req.params.qid })
                 .then((result) => {
@@ -113,10 +118,6 @@ app.get("/share_results/:qid/:country/:question", (req, res) => {
                 })
 })
 
-
-app.get("/terms", (req, res) => {
-    res.render("pages/terms")
-})
 
 app.post("/voteyes/:qid/:country/:question", (req, res) => {
     const score = new Score({
@@ -145,7 +146,6 @@ app.post("/voteyes/:qid/:country/:question", (req, res) => {
 
 
 app.post("/voteno/:qid/:country/:question", (req, res) => {
-    console.log("THIS IS CALLED")
     const score = new Score({
         question_id: req.params.qid,
         country: req.params.country
