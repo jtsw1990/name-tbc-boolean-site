@@ -1,4 +1,3 @@
-
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
@@ -11,18 +10,18 @@ const Poll = require("./models/polls");
 const Score = require("./models/scores")
 const app = express();
 const dbURI = process.env.dbURI;
-const port = 3000;
+const port = process.env.PORT || 3000;
 const methodOverride = require("method-override");
 let { IPinfoWrapper } = require("node-ipinfo");
 
 let ipinfo = new IPinfoWrapper(process.env.ipinfoToken);
+
 
 // Middleware and static file config
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride("_method"))
-
 
 
 // Connect to mongoDB and listen to port
