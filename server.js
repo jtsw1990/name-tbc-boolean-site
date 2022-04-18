@@ -67,7 +67,7 @@ app.get("/", async (req, res) => {
         questions: questions,
         country: client_country
     });
-    
+        
 })
 
 
