@@ -51,7 +51,7 @@ Poll.create({
 app.get("/", async (req, res) => {
     var ip = req.headers['x-forwarded-for'] ||
         req.socket.remoteAddress ||
-        null;
+        "::1";
     client_country = await ipinfo.lookupIp(ip).then((response) => {
         if (response.bogon) {
             return "Local"
