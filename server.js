@@ -52,21 +52,22 @@ app.get("/", async (req, res) => {
     var ip = req.headers['x-forwarded-for'] ||
         req.socket.remoteAddress ||
         "::1";
-    /*
     client_country = await ipinfo.lookupIp(ip).then((response) => {
         if (response.bogon) {
             return "Local"
         } else {
             return response.country
         }
-    }*/
-    const client_country = "Australia"
-    var questions = await Poll.find({});
-    questions = shuffle(questions);
+    })
+    //var questions = await Poll.find({});
+    //questions = shuffle(questions);
+    res.send(client_country)
+    /*
     res.render("pages/index", {
         questions: questions,
         country: client_country
     });
+    */
 })
 
 
