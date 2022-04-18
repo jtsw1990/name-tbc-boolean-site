@@ -64,7 +64,7 @@ app.get("/", (req, res) => {
                 questions = shuffle(results);
                 res.render("pages/index", {
                     questions: questions,
-                    country: response.country
+                    country: response.country || "Unknown"
                 });
             })
             .catch((err) => {
@@ -75,22 +75,6 @@ app.get("/", (req, res) => {
         .catch((err) => {
             console.log(err)
         })
-    
-        /*
-    client_country = await ipinfo.lookupIp(ip).then((response) => {
-        if (response.bogon) {
-            return "Unknown"
-        } else {
-            return response.country
-        }
-    })
-    var questions = await Poll.find({});
-    questions = shuffle(questions);
-    res.render("pages/index", {
-        questions: questions,
-        country: client_country
-    });
-    */
 })
 
 
